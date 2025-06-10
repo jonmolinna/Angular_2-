@@ -1,0 +1,26 @@
+<table>
+    <thead  >
+        <tr>
+            <th>Card Name</th>
+            <th>Card Name</th>
+        </tr>
+    </thead  >
+    <tbody>
+        @for (item of store.cards(); track $index) {
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.type}}</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Current Page => {{page()}}</p>
+
+<button (click)="handleNextPage()">Next Page</button>
+
+<pre>
+    <code>
+        Quantity of Spell Cards => {{ store.spellCards()}}
+    </code>
+</pre>

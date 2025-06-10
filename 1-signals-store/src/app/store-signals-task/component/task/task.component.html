@@ -1,0 +1,16 @@
+<div>
+  <p>Task: {{ store.visibleTasks().length }}</p>
+
+  <!-- TASK -->
+  @for (task of store.visibleTasks(); track $index) {
+  <p>{{ task.title }}</p>
+  }
+
+  <br />
+
+  <div>
+    <button (click)="store.changeFilter('pending')">Pending</button>
+    <button (click)="store.changeFilter('all')">All</button>
+    <button (click)="store.changeFilter('done')">Done</button>
+  </div>
+</div>
