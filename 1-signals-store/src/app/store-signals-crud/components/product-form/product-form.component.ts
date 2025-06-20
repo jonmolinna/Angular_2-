@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ProductStore } from '../../store/product.store';
+import { CreateProduct } from '../../models/create-product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -8,6 +10,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 })
 export class ProductFormComponent {
   private formBuilder = inject(FormBuilder);
+  private store = inject(ProductStore);
 
   initialForm = this.formBuilder.group({
     name: [''],
@@ -17,10 +20,8 @@ export class ProductFormComponent {
 
   handleSubmitProduct(event: Event): void {
     event.preventDefault();
-
-    let form = this.initialForm.value;
-
-    console.log("form ----> ", this.initialForm.value)
-    this.initialForm.reset()
+    let form = this.initialForm.value as CreateProduct;
+    this.store.addProduct(form);
+    this.initialForm.reset();
   }
 }

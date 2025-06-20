@@ -1,6 +1,5 @@
-export interface Product {
+import { CreateProduct } from "./create-product.model";
+
+export interface Product extends CreateProduct {
   id: number;
-  name: string;
-  description: string;
-  price: string;
 }

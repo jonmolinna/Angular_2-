@@ -1,4 +1,4 @@
-interface CreateProduct {
+export interface CreateProduct {
   name: string;
   description: string;
   price: string;

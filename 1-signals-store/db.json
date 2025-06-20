@@ -1,3 +1,10 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "3a75",
+      "name": "FIdeos",
+      "description": "fideos anita 250g",
+      "price": "4.50"
+    }
+  ]
 }
