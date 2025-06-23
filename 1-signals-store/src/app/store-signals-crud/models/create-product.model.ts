@@ -3,3 +3,5 @@ export interface CreateProduct {
   description: string;
   price: string;
 }
+
+export interface UpdateProduct extends CreateProduct {}

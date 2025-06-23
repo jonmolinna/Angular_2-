@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, finalize, pipe, switchMap, tap } from 'rxjs';
-import { CreateProduct } from '../models/create-product.model';
+import { CreateProduct, UpdateProduct } from '../models/create-product.model';
 
 interface ProductState {
   products: Product[];
@@ -68,5 +68,30 @@ export const ProductStore = signalStore(
         )
       )
     ),
+
+    // DELETE PRODUCT
+    deleteProduct: rxMethod<string>(
+      pipe(
+        tap(() => patchState(store, { loading: true, error: null })),
+        switchMap((id) =>
+          productService.deleteProduct(id).pipe(
+            tap((data: Product) => {
+              patchState(store, (state) => ({
+                loading: true,
+                products: state.products.filter(product => product.id !== data.id)
+              }));
+            })
+          )
+        )
+      )
+    ),
+
+    // UPDATE PRODUCT
+    updateProduct: rxMethod<{id: string, body: UpdateProduct}>(
+      pipe(
+        tap(() => patchState(store, {loading: true, error: null})),
+      )
+    )
+
   }))
 );

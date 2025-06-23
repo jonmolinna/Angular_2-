@@ -1,0 +1,35 @@
+<div>
+  @if (store.products().length < 1) {
+  <p class="text-center text-gray-700 font-bold">
+    Aun no tienes productos en la lista
+  </p>
+  } @else {
+  <div class="flex flex-wrap flex-row gap-2.5">
+    @for (item of store.products(); track $index) {
+    <div
+      class="w-full max-w-xs p-4 bg-white border border-gray-200 rounded-lg shadow-sm"
+    >
+      <h5 class="text-xl text-center font-medium text-gray-900">
+        {{ item.name }}
+      </h5>
+      <p class="mt-2 text-sm text-gray-700">{{ item.description }}</p>
+      <p class="mt-2 text-sm text-gray-700">S/ {{ item.price }}</p>
+      <div class="mt-5 flex flex-row-reverse gap-2.5">
+        <button
+        (click)="store.deleteProduct(item.id)"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800"
+        >
+          Eliminar
+        </button>
+        <button
+          class="py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:text-blue-700"
+        >
+          Editar
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
+  }
+</div>
