@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ProductStore } from '../../store/product.store';
 import { CreateProduct } from '../../models/create-product.model';
@@ -21,7 +21,27 @@ export class ProductFormComponent {
   handleSubmitProduct(event: Event): void {
     event.preventDefault();
     let form = this.initialForm.value as CreateProduct;
-    this.store.addProduct(form);
+    let product = this.store.selectPŕoduct();
+
+    if (product) {
+      // this.store.updateProduct(product.id, form)
+    }
+    else {
+      this.store.addProduct(form);
+    }
+
     this.initialForm.reset();
   }
+
+  updateProduct = effect(() => {
+    let update = this.store.selectPŕoduct();
+
+    if (update) {
+      this.initialForm.patchValue({
+        name: update.name,
+        description: update.description,
+        price: update.price,
+      });
+    }
+  });
 }

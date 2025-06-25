@@ -78,7 +78,9 @@ export const ProductStore = signalStore(
             tap((data: Product) => {
               patchState(store, (state) => ({
                 loading: true,
-                products: state.products.filter(product => product.id !== data.id)
+                products: state.products.filter(
+                  (product) => product.id !== data.id
+                ),
               }));
             })
           )
@@ -87,11 +89,16 @@ export const ProductStore = signalStore(
     ),
 
     // UPDATE PRODUCT
-    updateProduct: rxMethod<{id: string, body: UpdateProduct}>(
-      pipe(
-        tap(() => patchState(store, {loading: true, error: null})),
-      )
-    )
+    updateProduct: rxMethod<{ id: string; body: UpdateProduct }>(
+      pipe(tap(() => patchState(store, { loading: true, error: null })))
+    ),
 
+    // FIND PRODUCT FOR UPDATE
+    findProduct: (id: string) => {
+      const product = store.products().find((product) => product.id === id);
+      patchState(store, {
+        selectPŕoduct: product,
+      });
+    },
   }))
 );

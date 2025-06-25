@@ -1,0 +1,28 @@
+json-server --watch db.json --port 3000
+
+pipe
+----------------------------------------
+Es una funcion de RxJs que te permite componer operadores
+de forma secuencial, cada operador toma el valor emitido por el
+operador anterior.
+
+tap (tocar)
+---------------------------------------------
+Es un operador de RxJs que se usa para realizar efectos secundarios sin
+modificar los valores que fluyen por el pipe. es decir, permite
+tocar el flujo de datos para hacer algo con ellos sin cambiarlos.
+
+switchMap
+--------------------------------------------------
+Es un operador de RxJs, y muy comun en angular para menjar llamadas HTTP,
+toma el valor emitido por el observable anterior (CreateProduct que le pasastes a addProduct)
+y lo usa para crear un nuevo observable, luego se cambia (switches) a este nuevo observable y comienza
+a escuchar sus emisiones.
+
+switchMap, si el observable fuente (addProduct) emite un nuevo valor antes que el observable interno haya completado,
+switchMap, cancela la suscripcion al observable interno anterior y se suscribe al nuevo.
+
+uso comun
+- uso perfecto para escenario como busqueda "type-ahead".
+- para prevenir el envio de multiples pettciones HTTP, si el usuario hace click rapidamente varias veces en un boton guardar
+Si addProduct se llama de nuevo antes de que la productService.addPost anterior haya terminado, la petición anterior se cancela.

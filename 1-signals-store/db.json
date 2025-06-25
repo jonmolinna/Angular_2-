@@ -1,10 +1,22 @@
 {
   "products": [
     {
-      "id": "3a75",
-      "name": "FIdeos",
-      "description": "fideos anita 250g",
+      "id": "526a",
+      "name": "Fideos Don vittorio",
+      "description": "Don vittorio de 230g",
+      "price": "1.60"
+    },
+    {
+      "id": "d50a",
+      "name": "Fideos Don Maximo",
+      "description": "Don Maximo de 250g",
       "price": "4.50"
+    },
+    {
+      "id": "5c66",
+      "name": "Gloria",
+      "description": "Leche evaporada gloria pequeño",
+      "price": "2.50"
     }
   ]
 }
