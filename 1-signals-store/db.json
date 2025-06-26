@@ -17,6 +17,12 @@
       "name": "Gloria",
       "description": "Leche evaporada gloria pequeño",
       "price": "2.50"
+    },
+    {
+      "id": "f508",
+      "name": null,
+      "description": null,
+      "price": null
     }
   ]
 }

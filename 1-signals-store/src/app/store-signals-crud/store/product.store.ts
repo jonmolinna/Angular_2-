@@ -8,7 +8,7 @@ import { CreateProduct, UpdateProduct } from '../models/create-product.model';
 
 interface ProductState {
   products: Product[];
-  selectPŕoduct: Product | null;
+  selectProduct: Product | null;
   loading: boolean;
   error: string | null;
 }
@@ -16,7 +16,7 @@ interface ProductState {
 const initialState: ProductState = {
   products: [],
   loading: false,
-  selectPŕoduct: null,
+  selectProduct: null,
   error: null,
 };
 
@@ -36,7 +36,6 @@ export const ProductStore = signalStore(
               }));
             }),
             catchError((error) => {
-              console.log('ERROR --> ', error);
               patchState(store, { error: 'Ocurrio un error' });
               return [];
             }),
@@ -90,14 +89,37 @@ export const ProductStore = signalStore(
 
     // UPDATE PRODUCT
     updateProduct: rxMethod<{ id: string; body: UpdateProduct }>(
-      pipe(tap(() => patchState(store, { loading: true, error: null })))
+      pipe(
+        tap(() => patchState(store, { loading: true, error: null })),
+        switchMap(({ id, body }) => {
+          return productService.updateProduct(id, body).pipe(
+            tap((data) => {
+              console.log('DATA UPDATE ----> ', data);
+            }),
+            catchError((error) => {
+              patchState(store, {error: 'Ocurrio un error'})
+              return [];
+            }),
+            finalize(() => {
+              patchState(store, { loading: false });
+            })
+          );
+        })
+      )
     ),
 
     // FIND PRODUCT FOR UPDATE
     findProduct: (id: string) => {
       const product = store.products().find((product) => product.id === id);
       patchState(store, {
-        selectPŕoduct: product,
+        selectProduct: product,
+      });
+    },
+
+    // CLEAR SELECT PRODUCT
+    resetSelectProduct: () => {
+      patchState(store, {
+        selectProduct: null,
       });
     },
   }))
