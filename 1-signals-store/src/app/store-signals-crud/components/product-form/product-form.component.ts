@@ -26,6 +26,7 @@ export class ProductFormComponent {
 
     if (product) {
       this.store.updateProduct({id: product.id, body: form})
+      this.store.resetSelectProduct();
     }
     else {
       this.store.addProduct(form);

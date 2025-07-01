@@ -30,7 +30,7 @@ export const ProductStore = signalStore(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap((CreateProduct) => {
           return productService.addPost(CreateProduct).pipe(
-            tap((data) => {
+            tap((data: Product) => {
               patchState(store, (state) => ({
                 products: [...state.products, data],
               }));
@@ -93,8 +93,10 @@ export const ProductStore = signalStore(
         tap(() => patchState(store, { loading: true, error: null })),
         switchMap(({ id, body }) => {
           return productService.updateProduct(id, body).pipe(
-            tap((data) => {
-              console.log('DATA UPDATE ----> ', data);
+            tap((data: Product) => {
+              patchState(store, (state) => ({
+                products: state.products.map(product => product.id === data.id ? data : product )
+              }))
             }),
             catchError((error) => {
               patchState(store, {error: 'Ocurrio un error'})
